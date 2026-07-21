@@ -47,7 +47,7 @@ The primary objectives of this project are:
 - Build a scalable AI-powered MRO ecosystem suitable for enterprise UAV fleet operations.
 
 ---
-<img width="986" height="715" alt="image" src="https://github.com/user-attachments/assets/ab09dd97-69ff-473e-b93c-d70ef16bba95" />
+<img width="986" height="715" alt="image" src="Doc/image.png" />
 
 # Technology Stack
 
@@ -110,12 +110,7 @@ The UAV MRO Inspection Platform integrates modern technologies across mobile dev
 
 ---
 
-## AI Models
 
-| Stage | Model | Purpose |
-|-------|-------|---------|
-| Stage 1 | YOLO11-Seg | UAV detection and segmentation |
-| Stage 2 | YOLO11 | Surface defect detection |
 
 ---
 
@@ -163,49 +158,9 @@ The platform follows a cloud-based client-server architecture that integrates a 
 
 Technicians capture UAV images using the mobile application. The captured image is securely transmitted to the cloud through REST APIs, where the AI inference service performs automated inspection using a two-stage Computer Vision pipeline. Inspection results are returned to the mobile application for technician verification. Verified and feedback samples are then utilized to continuously improve the AI models through an active learning workflow.
 
-The overall architecture consists of five major layers:
-
-- **Mobile Application Layer**
-  - User Authentication
-  - UAV Identification (QR)
-  - Camera Interface
-  - Inspection Checklist
-  - AI Inspection Results
-  - Technician Verification
-  - Maintenance Records
-
-- **API & Backend Layer**
-  - FastAPI / Flask REST APIs
-  - Request Validation
-  - Image Upload
-  - AI Inference Service
-  - AWS Service Integration
-
-- **AI Inference Layer**
-  - Stage 1: UAV Detection & Segmentation (YOLO11-Seg)
-  - Stage 2: Surface Defect Detection (YOLO11)
-  - Image Annotation
-  - JSON Response Generation
-
-- **Cloud Infrastructure**
-  - AWS EC2 GPU Instance
-  - AWS API Gateway
-  - AWS S3 Storage
-  - AWS SNS Notifications
-  - CloudWatch Monitoring
-
-- **Continuous Learning Pipeline**
-  - Verified Inspection Storage
-  - Feedback Dataset Collection
-  - Manual Re-annotation
-  - Model Retraining
-  - Model Version Deployment
-
----
-
 ## High-Level Architecture
 
-<img width="1648" height="959" alt="image" src="https://github.com/user-attachments/assets/8b4420b9-e632-4c51-b3f0-56d103ad563d" />
+<img width="1648" height="959" alt="image" src="Doc/HLD_MRO.png" />
 
 ---
 
@@ -231,7 +186,7 @@ Instead of running heavy AI models on the mobile device, the application securel
 
 ---
 
-<img width="1470" height="797" alt="MRO_App" src="https://github.com/user-attachments/assets/43420a58-78c0-45df-8412-de998fbc6004" />
+<img width="1470" height="797" alt="MRO_App" src="Doc/MRO_App_UI.png" />
 
 ## Mobile Application Features
 
@@ -291,7 +246,7 @@ This verification process creates the active learning pipeline used for future m
 
 ### Maintenance Records
 
-<img width="1320" height="1087" alt="image" src="https://github.com/user-attachments/assets/080ad788-e215-4152-a744-194bb7e456a4" />
+<img width="1320" height="1087" alt="image" src="Doc/ERD_MRO.png" />
 
 
 The application maintains inspection records including:
@@ -354,34 +309,6 @@ Verified      Feedback
  ▼               ▼
 Repair Queue   Model Improvement
 ```
-
----
-
-## Mobile to Cloud Communication
-
-The mobile application communicates with the backend using secure REST APIs.
-
-```text
-Mobile App
-      │
- HTTPS Request
-      │
-      ▼
-API Gateway
-      │
-      ▼
-FastAPI / Flask
-      │
-      ▼
-AI Inference Engine
-      │
-      ▼
-Inspection Result
-      │
-      ▼
-Mobile Application
-```
-
 The application acts as a lightweight client, while all computationally intensive AI inference is executed on the AWS backend. This architecture minimizes mobile resource consumption, simplifies model updates, and enables deployment of larger AI models without modifying the mobile application.
 
 ---
@@ -532,11 +459,11 @@ Cropped UAV inspection region.
 
 The model was evaluated using the validation dataset after training.
 
-<img width="2012" height="1018" alt="image" src="https://github.com/user-attachments/assets/2d3745b4-5760-48dc-955d-87af53d304e9" />
+<img width="2012" height="1018" alt="image" src="Doc/Evaluation_stage_1.JPG" />
 
 ---
 
-<img width="1939" height="1077" alt="image" src="https://github.com/user-attachments/assets/2376c7d4-c16b-4e37-acab-22e384144c64" /> 
+<img width="1939" height="1077" alt="image" src="Doc/Evaluation_stage_2.JPG" /> 
 
 
 ## 1. Annotated Inspection Image
@@ -617,44 +544,6 @@ The mobile application acts as a lightweight client responsible for image acquis
 - Easy model replacement
 
 ---
-
-### Maintainability
-
-- Models updated only on the server
-- No application reinstall required
-- Version-controlled deployments
-
----
-
-### Performance
-
-- GPU-based inference
-- Large AI models supported
-- Faster inspection pipeline
-
----
-
-### Security
-
-- Centralized data management
-- Secure cloud storage
-- Controlled API access
-
----
-
-### Continuous Improvement
-
-- Real-world feedback collection
-- Active Learning
-- Dataset expansion
-- Periodic model retraining
-
----
-
-The architecture is intentionally modular, allowing future integration of Docker, Kubernetes, ONNX Runtime, TensorRT, CI/CD pipelines, model versioning, and enterprise MLOps infrastructure without significant architectural changes.
-
----
-
 
 # Current Model Performance
 
